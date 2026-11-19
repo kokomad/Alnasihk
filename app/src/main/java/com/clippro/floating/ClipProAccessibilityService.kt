@@ -24,10 +24,18 @@ class ClipProAccessibilityService : AccessibilityService() {
     private lateinit var windowManager: WindowManager
     private lateinit var floatingView: View
     private lateinit var params: WindowManager.LayoutParams
+    private var prefListener: android.content.SharedPreferences.OnSharedPreferenceChangeListener? = null
 
     override fun onServiceConnected() {
         super.onServiceConnected()
         setupFloatingBubble()
+        val clipPrefs = getSharedPreferences("clippro", android.content.Context.MODE_PRIVATE)
+        val refresh = {
+            floatingView.visibility = if (clipPrefs.getBoolean("enabled", true)) View.VISIBLE else View.GONE
+        }
+        refresh()
+        prefListener = android.content.SharedPreferences.OnSharedPreferenceChangeListener { _, _ -> refresh() }
+        clipPrefs.registerOnSharedPreferenceChangeListener(prefListener)
     }
 
     private fun setupFloatingBubble() {

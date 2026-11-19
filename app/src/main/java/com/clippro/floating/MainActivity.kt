@@ -17,6 +17,14 @@ class MainActivity : AppCompatActivity() {
         val btnOverlay = findViewById<Button>(R.id.btnOverlayPermission)
         val btnAccessibility = findViewById<Button>(R.id.btnAccessibilityPermission)
 
+        val prefs = getSharedPreferences("clippro", MODE_PRIVATE)
+        val sw = findViewById<androidx.appcompat.widget.SwitchCompat>(R.id.switchEnable)
+        sw.isChecked = prefs.getBoolean("enabled", true)
+        sw.setOnCheckedChangeListener { _, checked ->
+            prefs.edit().putBoolean("enabled", checked).apply()
+            Toast.makeText(this, if (checked) "تم تشغيل الفقاعة" else "تم إيقاف الفقاعة", Toast.LENGTH_SHORT).show()
+        }
+
         btnOverlay.setOnClickListener {
             if (!Settings.canDrawOverlays(this)) {
                 val intent = Intent(
