@@ -11,6 +11,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Show files
+        run: |
+          ls -la
+          echo "---- settings ----"
+          cat settings.gradle.kts || echo "NO settings.gradle.kts"
+          echo "---- app ----"
+          ls -la app || echo "NO app folder"
+          echo "---- app build file ----"
+          cat app/build.gradle.kts | head -20 || echo "NO app/build.gradle.kts"
+
       - uses: actions/setup-java@v4
         with:
           distribution: temurin
