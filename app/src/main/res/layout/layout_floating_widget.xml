@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/btnFloatingBubble"
+        android:layout_width="54dp"
+        android:layout_height="54dp"
+        android:background="@drawable/bg_floating_bubble"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:text="CP"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:id="@+id/menuContainer"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/bg_menu_panel"
+        android:elevation="10dp"
+        android:orientation="vertical"
+        android:padding="8dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/actionSelectAll"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:backgroundTint="#334155"
+            android:text="تحديد الكل (Select All)"
+            android:textColor="#F8FAFC"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/actionSmartCopy"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#2563EB"
+            android:text="نسخ ذكي للأكواد"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/actionExactPaste"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#10B981"
+            android:text="لصق دقيق (Paste)"
+            android:textColor="#FFFFFF"
+            android:textSize="13sp" />
+
+        <Button
+            android:id="@+id/actionCleanFormat"
+            android:layout_width="match_parent"
+            android:layout_height="42dp"
+            android:layout_marginTop="4dp"
+            android:backgroundTint="#475569"
+            android:text="تنظيف أرقام الأسطر"
+            android:textColor="#F8FAFC"
+            android:textSize="13sp" />
+
+    </LinearLayout>
+</LinearLayout>

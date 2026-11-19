@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ClipPro</string>
+    <string name="accessibility_service_description">خدمة ClipPro للنسخ واللصق الاحترافي وتحديد الكل عبر الزر العائم</string>
+</resources>
