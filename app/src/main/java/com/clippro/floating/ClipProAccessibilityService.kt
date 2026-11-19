@@ -51,8 +51,7 @@ class ClipProAccessibilityService : AccessibilityService() {
         val cleanBtn = Button(this).apply {
             text = "تنظيف الحافظة"
             setOnClickListener {
-                cleanClipboardCode()
-                Toast.makeText(this@ClipProAccessibilityService, "تم تنظيف الحافظة", Toast.LENGTH_SHORT).show()
+                startActivity(android.content.Intent(this@ClipProAccessibilityService, ClipCleanActivity::class.java).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK))
                 menuContainer.visibility = View.GONE
             }
         }
