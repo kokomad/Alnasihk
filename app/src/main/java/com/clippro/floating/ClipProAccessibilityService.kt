@@ -48,6 +48,15 @@ class ClipProAccessibilityService : AccessibilityService() {
 
         val bubble = floatingView.findViewById<TextView>(R.id.btnFloatingBubble)
         val menuContainer = floatingView.findViewById<LinearLayout>(R.id.menuContainer)
+        val cleanBtn = Button(this).apply {
+            text = "تنظيف الحافظة"
+            setOnClickListener {
+                cleanClipboardCode()
+                Toast.makeText(this@ClipProAccessibilityService, "تم تنظيف الحافظة", Toast.LENGTH_SHORT).show()
+                menuContainer.visibility = View.GONE
+            }
+        }
+        menuContainer.addView(cleanBtn)
 
         var initialX = 0
         var initialY = 0
