@@ -121,7 +121,7 @@ class ClipProAccessibilityService : AccessibilityService() {
     }
 
     private fun performSelectAll() {
-        val node = getActiveEditableNode()
+        val node = findTargetNode()
         if (node != null) {
             val textLength = node.text?.length ?: 0
             val args = Bundle().apply {
@@ -138,7 +138,7 @@ class ClipProAccessibilityService : AccessibilityService() {
     }
 
     private fun performSmartCopy() {
-        val node = getActiveEditableNode()
+        val node = findTargetNode()
         if (node != null && node.performAction(AccessibilityNodeInfo.ACTION_COPY)) {
             cleanClipboardCode()
             Toast.makeText(this, "تم النسخ الذكي وتنظيف أرقام الأسطر", Toast.LENGTH_SHORT).show()
@@ -148,7 +148,7 @@ class ClipProAccessibilityService : AccessibilityService() {
     }
 
     private fun performExactPaste() {
-        val node = getActiveEditableNode()
+        val node = findTargetNode()
         if (node != null && node.performAction(AccessibilityNodeInfo.ACTION_PASTE)) {
             Toast.makeText(this, "تم اللصق بدقة", Toast.LENGTH_SHORT).show()
         } else {
@@ -176,4 +176,33 @@ class ClipProAccessibilityService : AccessibilityService() {
             windowManager.removeView(floatingView)
         }
     }
+}
+
+fun android.accessibilityservice.AccessibilityService.findTargetNode(): AccessibilityNodeInfo? {
+    val roots = ArrayList<AccessibilityNodeInfo>()
+    rootInActiveWindow?.let { roots.add(it) }
+    for (w in windows) {
+        if (w.type == android.view.accessibility.AccessibilityWindowInfo.TYPE_APPLICATION) {
+            w.root?.let { roots.add(it) }
+        }
+    }
+    for (r in roots) {
+        val f = r.findFocus(AccessibilityNodeInfo.FOCUS_INPUT)
+        if (f != null && f.isEditable) return f
+    }
+    for (r in roots) {
+        val e = clipFindEditable(r)
+        if (e != null) return e
+    }
+    return null
+}
+
+private fun clipFindEditable(node: AccessibilityNodeInfo?): AccessibilityNodeInfo? {
+    if (node == null) return null
+    if (node.isEditable) return node
+    for (i in 0 until node.childCount) {
+        val f = clipFindEditable(node.getChild(i))
+        if (f != null) return f
+    }
+    return null
 }
